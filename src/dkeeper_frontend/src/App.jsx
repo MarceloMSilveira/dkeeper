@@ -1,31 +1,35 @@
-import { useState } from 'react';
-import { dkeeper_backend } from 'declarations/dkeeper_backend';
+//import { dkeeper_backend } from 'declarations/dkeeper_backend';
+
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Note from "./components/Note";
+import CreateArea from "./components/CreateArea";
+import { useState } from "react";
 
 function App() {
-  const [greeting, setGreeting] = useState('');
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    dkeeper_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
+  const [noteList,setNoteList] = useState([])
+  
+  function handleMap(note,index) {
+    return (
+      <Note 
+        key={index} 
+        id={note.id} 
+        title={note.title} 
+        content={note.content} 
+        deleteItem={(id)=>setNoteList(noteList.filter(note=>note.id!==id))}
+      />
+    )
   }
 
-  return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
-  );
+  return(
+    <>
+      <Header />
+      <CreateArea onAddNote={(newNote)=>setNoteList([...noteList,newNote])}/>
+      {noteList.map(handleMap)}
+      <Footer />
+    </>
+  )
 }
 
 export default App;
