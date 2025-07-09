@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Note from "./components/Note";
 import CreateArea from "./components/CreateArea";
 import { useState } from "react";
+import { dkeeper_backend } from "../../declarations/dkeeper_backend";
 
 function App() {
 
@@ -22,10 +23,15 @@ function App() {
     )
   }
 
+  function addNote(newNote) {
+    dkeeper_backend.createNote(newNote.title, newNote.content);
+    setNoteList([...noteList,newNote])
+  }
+
   return(
     <>
       <Header />
-      <CreateArea onAddNote={(newNote)=>setNoteList([...noteList,newNote])}/>
+      <CreateArea onAddNote={addNote}/>
       {noteList.map(handleMap)}
       <Footer />
     </>
