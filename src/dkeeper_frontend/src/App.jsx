@@ -14,11 +14,12 @@ function App() {
   
   function handleMap(note,index) {
     
-    function deleteNote(id) {
+    async function deleteNote(id) {
       console.log(`id to delete: ${id}`);
       console.log(`note to delete: ${note.title}`);
       console.log(`id of note: ${note.id}`);
       setNoteList(noteList.filter(note=>note.id!==id));
+      await dkeeper_backend.removeNote(id);
     }
     
     return (

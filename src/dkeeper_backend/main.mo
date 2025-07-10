@@ -1,5 +1,6 @@
 import List "mo:base/List";
 import Debug "mo:base/Debug";
+import Bool "mo:base/Bool";
 
 actor DKeeper {
   
@@ -24,6 +25,11 @@ actor DKeeper {
   };
 
   public query func readNotes() : async [Note] {
+    return List.toArray(notes);
+  };
+
+  public func removeNote(id : Text) : async [Note] {
+    notes := List.filter<Note>(notes, func(note) {note.id != id});
     return List.toArray(notes);
   };
 
