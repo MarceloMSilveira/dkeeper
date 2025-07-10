@@ -4,15 +4,17 @@ import Debug "mo:base/Debug";
 actor DKeeper {
   
   public type Note = {
+    id: Text;
     title: Text;
     content: Text;
   };
 
   stable var notes: List.List<Note> = List.nil<Note>();
 
-  public func createNote(titleText: Text, contentText: Text) {
+  public func createNote(idText: Text, titleText: Text, contentText: Text) {
 
     let newNote: Note = {
+      id = idText;
       title = titleText;
       content = contentText;
     };

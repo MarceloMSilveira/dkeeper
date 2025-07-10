@@ -18,7 +18,7 @@ function App() {
       console.log(`id to delete: ${id}`);
       console.log(`note to delete: ${note.title}`);
       console.log(`id of note: ${note.id}`);
-      //setNoteList(noteList.filter(note=>note.id!==id));
+      setNoteList(noteList.filter(note=>note.id!==id));
     }
     
     return (
@@ -32,9 +32,10 @@ function App() {
     )
   };
 
-  function addNote(newNote) {
-    dkeeper_backend.createNote(newNote.title, newNote.content);
-    setNoteList([newNote,...noteList])
+  async function addNote(newNote) {
+    //dkeeper_backend.createNote(newNote.title, newNote.content);
+    setNoteList([newNote,...noteList]);
+    await dkeeper_backend.createNote(newNote.id,newNote.title,newNote.content);
   };
 
   useEffect(()=>{
